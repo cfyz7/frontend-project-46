@@ -1,76 +1,72 @@
 import fs from 'fs'
 import _ from 'lodash';
 
-import { fileURLToPath } from 'url';
+const file1 = fs.readFileSync('./__fixtures__/file1.json', 'utf-8'); 
+const file2 = fs.readFileSync('./__fixtures__/file2.json', 'utf-8'); 
+const dataParse1 = JSON.parse(file1); 
+const dataParse2 = JSON.parse(file2); 
 
-const __filename = fileURLToPath(import.meta.url);
-console.log(__filename)
-// const data1 = fs.readFileSync('./__fixtures__/file1.json', 'utf-8'); 
-// const data2 = fs.readFileSync('./__fixtures__/file2.json', 'utf-8'); 
-// const dataParse1 = JSON.parse(data1); 
-// const dataParse2 = JSON.parse(data2); 
+export const buildTree = (data1, data2) => {
+    const keys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
+    const result = keys.map((key) => {
+        if (!Object.hasOwn(data2, key)) {
+            return {
+            key,
+            type: 'deleted',
+            value: data1[key],
+            };
+        }
+        if (!Object.hasOwn(data1, key)) {
+            return {
+            key,
+            type: 'added',
+            value: data2[key],
+            };
+        }
+        if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
+            return {
+            key,
+            children: buildTree(data1[key], data2[key]),
+            type: 'nested',
+             };
+        }
+        if (!_.isEqual(data1[key], data2[key])) {
+            return {
+            key,
+            type: 'changed',
+            value1: data1[key],
+            value2: data2[key],
+            };
+        }
+        return {
+        key,
+        type: 'unchanged',
+        value: data1[key],
+        };
+    });
+    return result;
+};
 
-// const buildTree = (obj1, obj2) => {
-//     return [obj1, obj2]
-// }
+const result = buildTree(dataParse1, dataParse2)
 
-// const makeFormatter = (dates) => {
-//     const firstObj = dates[0];
-//     const secondObj = dates[1];
-//     const keys1 = Object.keys(firstObj);
-//     const keys2 = Object.keys(secondObj);
-//     const keys = _.union(keys1, keys2);
-//     const result = {};
-//     for (const key of keys) {
-//       if (!Object.hasOwn(firstObj, key)) {
-//         result[key] = 'added';
-//       } else if (!Object.hasOwn(secondObj, key)) {
-//         result[key] = 'deleted';
-//       } else if (firstObj[key] !== secondObj[key]) {
-//         result[key] = 'changed';
-//       } else {
-//         result[key] = 'unchanged';
-//       }
-//     }
-//     return result
-// }
-// console.log(makeFormatter(buildTree(dataParse1, dataParse2)))
+export const makeFormater = (array, separator = ' ') => {
+    const result = [];
+    for (const arr of array) {
+        if (arr.type === 'unchanged') {
+            result.push(`   ${separator}${arr.key}: ${arr.value}\n`)
+        }
+        if (arr.type === 'added') {
+            result.push(`${separator} + ${arr.key}: ${arr.value}\n`)
+        }
+        if (arr.type === 'deleted') {
+            result.push(`${separator} - ${arr.key}: ${arr.value}\n`)
+        }
+        if (arr.type === 'changed') {
+            result.push(`${separator} + ${arr.key}: ${arr.value1}\n`)
+            result.push(`${separator} - ${arr.key}: ${arr.value2}\n`)
+        }
+    }
+    return `{\n${result.join('')}}`
+}
 
-
-// ********************************************************************************************
-// const genDiff = (data1, data2 ) => {
-//     const result = []
-//     const keys1 = Object.keys(data1);
-//     const keys2 = Object.keys(data2);
-//     const keys = _.union(keys1, keys2);
-//     for (const key of keys) {
-//         if (_.has(data1, key) && !_.has(data2, key)) {
-//             result.push(`\n  - ${key}: ${data1[key]}`);
-//         }
-//         if (_.has(data1, key) === _.has(data2, key) && data1[key] === data2[key]) {
-//             result.push(`\n    ${key}: ${data1[key]}`);
-//         }
-//         if (_.has(data1, key) === _.has(data2, key) && data1[key] !== data2[key]) {
-//             result.push(`\n  - ${key}: ${data1[key]}`);
-//             result.push(`\n  + ${key}: ${data2[key]}`);
-//         }
-//         if (!_.has(data1, key) && _.has(data2, key)) {
-//             result.push(`\n  + ${key}: ${data2[key]}`);
-//         }   
-//     }
-//     result.sort((a,b) => a.charCodeAt(5) - b.charCodeAt(5));
-//     return `{${result.join('')}\n}`; 
-// };
-// console.log(genDiff(dataParse1, dataParse2));
-// export default genDiff;
-
-// export default (filepath1, filepath2) => {
-//     const data1 = fs.readFileSync(filepath1, 'utf-8'); 
-//     const data2 = fs.readFileSync(filepath2, 'utf-8'); 
-//     const dataParse1 = JSON.parse(data1); 
-//     const dataParse2 = JSON.parse(data2); 
-//     genDiff(dataParse1, dataParse2)
-// };
-
-
-
+console.log(makeFormater(result))
