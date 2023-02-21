@@ -3,7 +3,7 @@ import { cwd } from 'node:process';
 import { resolve, extname } from 'node:path';
 import parseFile from './parser.js';
 import buildTree from './buildTree.js';
-import makeFormater from './formatters/index.js';
+import makeFormater from './formatters/paintForm.js';
 
 const getPathToFile = (filepath) => resolve(cwd(), filepath);
 // console.log(getPathToFile('./__fixtures__/file1.json'))
