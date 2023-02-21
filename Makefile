@@ -8,5 +8,7 @@ fix:
 	npx eslint --fix .
 test:
 	NODE_OPTIONS=--experimental-vm-modules npx jest	
+test_coverage:
+	NODE_OPTIONS=--experimental-vm-modules npx jest	--coverage
 run:
 	gendiff './__fixtures__/file1.json' './__fixtures__/file2.json' 

@@ -1,15 +1,24 @@
-const formatter = (tree, formatName) => {
-    switch (formatName) {
-      case 'stylish':
-        return formatStylish(tree);
-      case 'plain':
-        return plainStylish(tree);
-      case 'json':
-        return JSON.stringify(tree);
-      default:
-        throw new Error(
-          `The ${formatName} format is supported.\n supported fornmats: stylish, plain, json`,
-        );
+const makeFormater = (array, separator = ' ', num = 4) => {
+    const result = [];
+    for (const arr of array) {
+        if (arr.type === 'unchanged') {
+            result.push(`${separator.repeat(num)}${arr.key}: ${arr.value}\n`)
+        }
+
+        if (arr.type === 'added') {
+            result.push(`${separator} + ${arr.key}: ${arr.value}\n`)
+        }
+
+        if (arr.type === 'deleted') {
+            result.push(`${separator} - ${arr.key}: ${arr.value}\n`)
+        }
+
+        if (arr.type === 'changed') {
+            result.push(`${separator} - ${arr.key}: ${arr.value1}\n`)
+            result.push(`${separator} + ${arr.key}: ${arr.value2}\n`)
+        }
     }
-  };
-  export default formatter;
+    return `{\n${result.join('')}}`
+}
+
+export default makeFormater;
