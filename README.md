@@ -1,7 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/cfyz7/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/cfyz7/frontend-project-46/actions)
 
-[![Node CI](https://github.com/cfyz7/frontend-project-46/actions/workflows/CI.yml/badge.svg)](https://github.com/cfyz7/frontend-project-46/actions/workflows/CI.yml)
+[![Node CI](https://github.com/cfyz7/frontend-project-46/actions/workflows/myCI.yml/badge.svg)](https://github.com/cfyz7/frontend-project-46/actions/workflows/myCI.yml)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/03ff60f154c302c88be1/maintainability)](https://codeclimate.com/github/cfyz7/frontend-project-46/maintainability)
 
