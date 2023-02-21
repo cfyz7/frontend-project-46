@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import genDiff from '../src/index.js';
+import gendiff from '../src/index.js';
 
 const program = new Command()
 program
@@ -10,7 +10,8 @@ program
   .arguments('<filepath1>', 'path to file1')
   .arguments('<filepath2>', 'path to file2')
   .action((filepath1, filepath2) => {
-    console.log(genDiff(filepath1, filepath2))
+    console.log(gendiff(filepath1, filepath2))
+    // console.log(gendiff('./__fixtures__/file1.json', './__fixtures__/file2.json'))
   })
   
 program.parse();
