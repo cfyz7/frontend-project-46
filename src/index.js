@@ -14,7 +14,7 @@ const readFile = (filepath) => fs.readFileSync(filepath, 'utf-8');
 // console.log(readFile('./__fixtures__/file1.json'))
 // console.log(parseFile(readFile('./__fixtures__/file1.json'), getFormat('./__fixtures__/file1.json')))
 
-const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
+const genDiff = (filepath1, filepath2) => {
     const firstFile = getPathToFile(filepath1)
     const secondFile = getPathToFile(filepath2)
 
