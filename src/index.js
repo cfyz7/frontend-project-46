@@ -30,7 +30,7 @@ const genDiff = (filepath1, filepath2, formatName = 'stylish') => {
     );
     return makeFormater(informationDiff);
 }
-console.log(genDiff('./__fixtures__/file3.yml', './__fixtures__/file4.yml'))
-
+// console.log(genDiff('./__fixtures__/file3.yml', './__fixtures__/file4.yml'))
+// console.log(genDiff('./__fixtures__/file1.json', './__fixtures__/file2.json'))
 
 export default genDiff;
