@@ -19,12 +19,13 @@
   "homepage": "https://github.com/cfyz7/frontend-project-46#readme",
   "dependencies": {
     "commander": "^9.5.0",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@jest/globals": "^29.0.1",
     "@babel/core": "^7.20.2",
     "@babel/preset-env": "^7.20.2",
+    "@jest/globals": "^29.0.1",
     "babel-jest": "^29.3.1",
     "jest": "^29.4.3"
   },
