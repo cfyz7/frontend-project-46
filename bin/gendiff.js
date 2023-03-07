@@ -11,8 +11,8 @@ program
   .arguments('<filepath1>')
   .arguments('<filepath2>')
   .action((filepath1, filepath2) => {
-    console.log(gendiff(filepath1, filepath2))
-    // console.log(gendiff('./__fixtures__/file1.json', './__fixtures__/file2.json'))
+    console.log(gendiff(filepath1, filepath2, 'plain'))
+    // console.log(gendiff('./__fixtures__/file1.json', './__fixtures__/file2.json', 'plain'))
   })
   
 program.parse();

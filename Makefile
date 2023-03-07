@@ -1,16 +1,24 @@
 install:
 	npm ci
-gendiff:
-	node bin/gendiff.js 
+
 lint:
 	npx eslint .
+
 fix:
 	npx eslint --fix .
+
 publish:
 	npm publish --dry-run
+
 test:
-	NODE_OPTIONS=--experimental-vm-modules npx jest	
-test_coverage:
-	NODE_OPTIONS=--experimental-vm-modules npx jest	--coverage
+	npm test
+
+test-coverage:
+	npm test -- --coverage --coverageProvider=v8
+
 run:
-	gendiff './__fixtures__/file1.json' './__fixtures__/file2.json' 
+	gendiff './__fixtures__/file1.yml' './__fixtures__/file2.yml' 
+
+run2:
+	gendiff './__fixtures__/file1.json' './__fixtures__/file2.' 
+	
