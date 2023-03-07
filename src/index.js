@@ -4,8 +4,8 @@ import { resolve, extname } from 'node:path';
 import parseFile from './parser.js';
 import buildTree from './buildTree.js';
 import formatter from './formatters/index.js';
-import makeFormater from './formatters/paintForm.js';
-import plainStylish from './formatters/plain.js';
+// import makeFormater from './formatters/stylish.js';
+// import plainStylish from './formatters/plain.js';
 
 const getPathToFile = (filepath) => resolve(cwd(), filepath);
 const getFormat = (filepath) => extname(filepath).substring(1);

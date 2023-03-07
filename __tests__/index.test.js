@@ -29,7 +29,7 @@ describe('comparing  files', () => {
     test('testing plain', () => {
         expect(gendiff(file1Y, file2Y, 'plain')).toEqual(filePlain)
     });
-    test('testing YAML', () => {
+    test('testing default', () => {
         expect(gendiff(file3, file4)).toEqual(fileDefault)
     });
 });

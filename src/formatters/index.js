@@ -1,4 +1,4 @@
-import makeFormater from './paintForm.js';
+import makeFormater from './stylish.js';
 import plainStylish from './plain.js';
 
 const formatter = (tree, formatName) => {
