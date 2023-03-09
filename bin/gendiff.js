@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 import gendiff from '../src/index.js';
 
-const program = new Command()
+const program = new Command();
 
 program
   .name('gendiff')
@@ -11,10 +11,8 @@ program
   .option('-f, --format <type>', 'output format', 'stylish')
   .arguments('<filepath1> <filepath2>')
   .action((filepath1, filepath2) => {
-    const option = program.opts()
-    console.log(gendiff(filepath1, filepath2, option.format))
-  })
-  
+    const option = program.opts();
+    console.log(gendiff(filepath1, filepath2, option.format));
+  });
+
 program.parse();
-
-

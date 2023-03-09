@@ -23,47 +23,46 @@ const stringify = (data, depth) => {
   return `{\n${lines.join('\n')}\n${getFourOrEightSpaces(depth)}}`;
 };
 
-
 const iter = (diff, depth = 1) => diff.map((node) => {
-    switch (node.type) {
-      case 'deleted':
-        return `${getTwoOrSixSpaces(depth)}- ${node.key}: ${stringify(
-          node.value,
-          depth,
-        )}`;
-      case 'added':
-        return `${getTwoOrSixSpaces(depth)}+ ${node.key}: ${stringify(
-          node.value,
-          depth,
-        )}`;
-      case 'changed': {
-        return `${getTwoOrSixSpaces(depth)}- ${node.key}: ${stringify(
-          node.value1,
-          depth,
-        )}\n${getTwoOrSixSpaces(depth)}+ ${node.key}: ${stringify(
-          node.value2,
-          depth,
-        )}`;
-      }
-      case 'unchanged':
-        return `${getFourOrEightSpaces(depth)}${node.key}: ${stringify(
-          node.value,
-          depth,
-        )}`;
-      case 'nested': {
-        const lines = iter(node.children, depth + 1);
-        return `${getFourOrEightSpaces(depth)}${node.key}: {\n${lines.join(
-          '\n',
-        )}\n${getFourOrEightSpaces(depth)}}`;
-      }
-      default:
-        throw new Error(`Unknown type of node '${node.type}'.`);
+  switch (node.type) {
+    case 'deleted':
+      return `${getTwoOrSixSpaces(depth)}- ${node.key}: ${stringify(
+        node.value,
+        depth,
+      )}`;
+    case 'added':
+      return `${getTwoOrSixSpaces(depth)}+ ${node.key}: ${stringify(
+        node.value,
+        depth,
+      )}`;
+    case 'changed': {
+      return `${getTwoOrSixSpaces(depth)}- ${node.key}: ${stringify(
+        node.value1,
+        depth,
+      )}\n${getTwoOrSixSpaces(depth)}+ ${node.key}: ${stringify(
+        node.value2,
+        depth,
+      )}`;
     }
-  });
-  
-  const makeFormater = (tree) => {
-    const result = iter(tree, 1);
-    return `{\n${result.join('\n')}\n}`;
-  };
+    case 'unchanged':
+      return `${getFourOrEightSpaces(depth)}${node.key}: ${stringify(
+        node.value,
+        depth,
+      )}`;
+    case 'nested': {
+      const lines = iter(node.children, depth + 1);
+      return `${getFourOrEightSpaces(depth)}${node.key}: {\n${lines.join(
+        '\n',
+      )}\n${getFourOrEightSpaces(depth)}}`;
+    }
+    default:
+      throw new Error(`Unknown type of node '${node.type}'.`);
+  }
+});
+
+const makeFormater = (tree) => {
+  const result = iter(tree, 1);
+  return `{\n${result.join('\n')}\n}`;
+};
 
 export default makeFormater;
