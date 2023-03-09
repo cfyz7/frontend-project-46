@@ -20,6 +20,6 @@ run:
 	node bin/gendiff.js './__fixtures__/file1.yml' './__fixtures__/file2.yml' 
 
 run2:
-	node bin/gendiff.js './__fixtures__/file1.json' './__fixtures__/file2.json' 
+	gendiff -f plain './__fixtures__/file1.json' './__fixtures__/file2.json' 
 
 .PHONY: test
