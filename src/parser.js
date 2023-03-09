@@ -11,4 +11,4 @@ export default (data, format) => {
         default:
             throw new Error(`'Unknown format! ${format}'`);
     }
-}
+};
